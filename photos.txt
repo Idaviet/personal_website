@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- GLightbox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+    <!-- GLightbox JS -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+    <!-- Initialize GLightbox -->
+    <script>
+        const lightbox = GLightbox({
+            selector: '.glightbox'
+        });
+    </script>
+
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Isaac G.L. Daviet - Photos</title>
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v7.0.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav" data-current-section="Florida">
+            <a class="navbar-brand js-scroll-trigger" href=index.html>
+                <span class="d-block d-lg-none" >Isaac Daviet</span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="..." /></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav">
+                    <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="index.html">Resume</a></li> -->
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Florida">Florida</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Japan">Japan</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#New York">New York</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Croatia">Croatia</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Italy">Italy</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Alps">Alps</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Sweden">Sweden</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#North Cascades">North Cascades</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Oregon Coast">Oregon Coast</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#Paris">Paris</a></li>
+
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Page Content-->
+        <div class="container-fluid p-0">
+            <!-- About-->
+            <section class="resume-section florida" id="Florida">
+                <div class="resume-section-content">
+                    <h1 class="mb-0">
+                        Florida
+                        <span class="text-primary"> 2025</span>
+                    </h1>
+                    <br><br>
+                    <div class="photo-grid">
+                        <a href="assets/img/photos_page/florida/photo_1.png" class="glightbox" data-gallery="florida" data-title="Myakka River State Park">
+                            <img src="assets/img/photos_page/florida/photo_1.png" alt="Description">
+                        </a>
+                        <a href="assets/img/photos_page/florida/photo_2.png" class="glightbox" data-gallery="florida">
+                            <img src="assets/img/photos_page/florida/photo_2.png" alt="Description">
+                        </a>
+                        <a href="assets/img/photos_page/florida/photo_3.png" class="glightbox" data-gallery="florida">
+                            <img src="assets/img/photos_page/florida/photo_3.png" alt="Description">
+                        </a>
+                    </div>
+                    </div>
+                    </section>
+                    <section class="resume-section japan" id="Japan">
+                        <div class="resume-section-content">
+                            <h1 class="mb-5">
+                                Japan
+                                <span class="text-primary"> 2025</span>
+
+                            <div class="photo-grid">
+                                <a href="assets/img/photos_page/japan/photo_1.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_1.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_2.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_2.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_3.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_3.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_4.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_4.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_5.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_5.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_6.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_6.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_7.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_7.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_8.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_8.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_9.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_9.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_10.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_10.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_11.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_11.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_12.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_12.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_13.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_13.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_14.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_14.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_15.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_15.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_16.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_16.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_17.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_17.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_18.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_18.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_19.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_19.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_20.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_20.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_21.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_21.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/japan/photo_22.png" class="glightbox" data-gallery="japan"><img src="assets/img/photos_page/japan/photo_22.png" alt="Description"></a>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="resume-section new-york" id="New York">
+                        <div class="resume-section-content">
+                            <h1 class="mb-5">
+                                New York
+                                <span class="text-primary"> 2025</span>
+
+                            <div class="photo-grid">
+                                <a href="assets/img/photos_page/new_york/photo_1.png" class="glightbox" data-gallery="new-york"><img src="assets/img/photos_page/new_york/photo_1.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/new_york/photo_2.png" class="glightbox" data-gallery="new-york"><img src="assets/img/photos_page/new_york/photo_2.png" alt="Description"></a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="resume-section croatia" id="Croatia">
+                        <div class="resume-section-content">
+                            <h1 class="mb-5">
+                                Croatia
+                                <span class="text-primary"> 2024</span>
+
+                            <div class="photo-grid">
+                                <a href="assets/img/photos_page/croatia/photo_1.png" class="glightbox" data-gallery="croatia"><img src="assets/img/photos_page/croatia/photo_1.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/croatia/photo_2.png" class="glightbox" data-gallery="croatia"><img src="assets/img/photos_page/croatia/photo_2.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/croatia/photo_9.png" class="glightbox" data-gallery="croatia"><img src="assets/img/photos_page/croatia/photo_9.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/croatia/photo_13.png" class="glightbox" data-gallery="croatia"><img src="assets/img/photos_page/croatia/photo_13.png" alt="Description"></a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="resume-section italy" id="Italy">
+                        <div class="resume-section-content">
+                            <h1 class="mb-5">
+                                Italy
+                                <span class="text-primary"> 2024</span>
+
+                            <div class="photo-grid">
+                                <a href="assets/img/photos_page/italy/photo_3.png" class="glightbox" data-gallery="italy"><img src="assets/img/photos_page/italy/photo_3.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/italy/photo_4.png" class="glightbox" data-gallery="italy"><img src="assets/img/photos_page/italy/photo_4.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/italy/photo_5.png" class="glightbox" data-gallery="italy"><img src="assets/img/photos_page/italy/photo_5.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/italy/photo_6.png" class="glightbox" data-gallery="italy"><img src="assets/img/photos_page/italy/photo_6.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/italy/photo_7.png" class="glightbox" data-gallery="italy"><img src="assets/img/photos_page/italy/photo_7.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/italy/photo_8.png" class="glightbox" data-gallery="italy"><img src="assets/img/photos_page/italy/photo_8.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/italy/photo_10.png" class="glightbox" data-gallery="italy"><img src="assets/img/photos_page/italy/photo_10.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/italy/photo_11.png" class="glightbox" data-gallery="italy"><img src="assets/img/photos_page/italy/photo_11.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/italy/photo_12.png" class="glightbox" data-gallery="italy"><img src="assets/img/photos_page/italy/photo_12.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/italy/photo_14.png" class="glightbox" data-gallery="italy"><img src="assets/img/photos_page/italy/photo_14.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/italy/photo_15.png" class="glightbox" data-gallery="italy"><img src="assets/img/photos_page/italy/photo_15.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/italy/photo_16.png" class="glightbox" data-gallery="italy"><img src="assets/img/photos_page/italy/photo_16.png" alt="Description"></a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="resume-section alps" id="Alps">
+                        <div class="resume-section-content">
+                            <h1 class="mb-5">
+                                Alps
+                                <span class="text-primary"> 2024</span>
+
+                            <div class="photo-grid">
+                                <a href="assets/img/photos_page/alps/photo_1.png" class="glightbox" data-gallery="alps"><img src="assets/img/photos_page/alps/photo_1.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/alps/photo_2.png" class="glightbox" data-gallery="alps"><img src="assets/img/photos_page/alps/photo_2.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/alps/photo_3.png" class="glightbox" data-gallery="alps"><img src="assets/img/photos_page/alps/photo_3.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/alps/photo_4.png" class="glightbox" data-gallery="alps"><img src="assets/img/photos_page/alps/photo_4.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/alps/photo_5.png" class="glightbox" data-gallery="alps"><img src="assets/img/photos_page/alps/photo_5.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/alps/photo_6.png" class="glightbox" data-gallery="alps"><img src="assets/img/photos_page/alps/photo_6.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/alps/photo_7.jpg" class="glightbox" data-gallery="alps"><img src="assets/img/photos_page/alps/photo_7.jpg" alt="Description"></a>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="resume-section sweden" id="Sweden">
+                        <div class="resume-section-content">
+                            <h1 class="mb-5">
+                                Sweden
+                                <span class="text-primary"> 2023</span>
+
+                            <div class="photo-grid">
+                                <a href="assets/img/photos_page/sweden/photo_1.png" class="glightbox" data-gallery="sweden"><img src="assets/img/photos_page/sweden/photo_1.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/sweden/photo_2.png" class="glightbox" data-gallery="sweden"><img src="assets/img/photos_page/sweden/photo_2.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/sweden/photo_3.png" class="glightbox" data-gallery="sweden"><img src="assets/img/photos_page/sweden/photo_3.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/sweden/photo_4.png" class="glightbox" data-gallery="sweden"><img src="assets/img/photos_page/sweden/photo_4.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/sweden/photo_5.png" class="glightbox" data-gallery="sweden"><img src="assets/img/photos_page/sweden/photo_5.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/sweden/photo_6.png" class="glightbox" data-gallery="sweden"><img src="assets/img/photos_page/sweden/photo_6.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/sweden/photo_7.png" class="glightbox" data-gallery="sweden"><img src="assets/img/photos_page/sweden/photo_7.png" alt="Description"></a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="resume-section cascades" id="North Cascades">
+                        <div class="resume-section-content">
+                            <h1 class="mb-5">
+                                North Cascades
+                                <span class="text-primary"> 2022</span>
+
+                            <div class="photo-grid">
+                                <a href="assets/img/photos_page/north_cascades/photo_1.png" class="glightbox" data-gallery="north-cascades"><img src="assets/img/photos_page/north_cascades/photo_1.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/north_cascades/photo_2.png" class="glightbox" data-gallery="north-cascades"><img src="assets/img/photos_page/north_cascades/photo_2.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/north_cascades/photo_3.png" class="glightbox" data-gallery="north-cascades"><img src="assets/img/photos_page/north_cascades/photo_3.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/north_cascades/photo_4.png" class="glightbox" data-gallery="north-cascades"><img src="assets/img/photos_page/north_cascades/photo_4.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/north_cascades/photo_5.png" class="glightbox" data-gallery="north-cascades"><img src="assets/img/photos_page/north_cascades/photo_5.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/north_cascades/photo_6.png" class="glightbox" data-gallery="north-cascades"><img src="assets/img/photos_page/north_cascades/photo_6.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/north_cascades/photo_7.png" class="glightbox" data-gallery="north-cascades"><img src="assets/img/photos_page/north_cascades/photo_7.png" alt="Description"></a>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="resume-section oregon-coast" id="Oregon Coast">
+                        <div class="resume-section-content">
+                            <h1 class="mb-5">
+                                Oregon Coast
+                                <span class="text-primary"> 2022</span>
+
+                            <div class="photo-grid">
+                                <a href="assets/img/photos_page/oregon_coast/photo_1.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/oregon_coast/photo_1.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/oregon_coast/photo_2.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/oregon_coast/photo_2.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/oregon_coast/photo_3.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/oregon_coast/photo_3.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/oregon_coast/photo_4.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/oregon_coast/photo_4.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/oregon_coast/photo_5.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/oregon_coast/photo_5.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/oregon_coast/photo_6.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/oregon_coast/photo_6.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/oregon_coast/photo_7.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/oregon_coast/photo_7.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/oregon_coast/photo_8.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/oregon_coast/photo_8.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/oregon_coast/photo_9.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/oregon_coast/photo_9.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/oregon_coast/photo_10.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/oregon_coast/photo_10.png" alt="Description"></a>
+                                <a href="assets/img/photos_page/oregon_coast/photo_11.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/oregon_coast/photo_11.png" alt="Description"></a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="resume-section paris" id="Paris">
+                <div class="resume-section-content">
+                    <h1 class="mb-5">
+                        Paris
+                        <span class="text-primary"> 2022</span>
+
+                    <div class="photo-grid">
+                        <a href="assets/img/photos_page/paris/photo_1.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/paris/photo_1.png" alt="Description"></a>
+                        <a href="assets/img/photos_page/paris/photo_2.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/paris/photo_2.png" alt="Description"></a>
+                        <a href="assets/img/photos_page/paris/photo_3.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/paris/photo_3.png" alt="Description"></a>
+                        <a href="assets/img/photos_page/paris/photo_4.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/paris/photo_4.png" alt="Description"></a>
+                        <a href="assets/img/photos_page/paris/photo_5.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/paris/photo_5.png" alt="Description"></a>
+                        <a href="assets/img/photos_page/paris/photo_6.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/paris/photo_6.png" alt="Description"></a>
+                        <a href="assets/img/photos_page/paris/photo_7.png" class="glightbox" data-gallery="oregon-coast"><img src="assets/img/photos_page/paris/photo_7.png" alt="Description"></a>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+
+        <script>
+            // Change navbar background based on visible section
+            function updateNavBackground() {
+                const sections = document.querySelectorAll('section[id]');
+                const nav = document.getElementById('sideNav');
+                const scrollPos = window.scrollY + 200;
+                
+                sections.forEach(section => {
+                    const top = section.offsetTop;
+                    const height = section.offsetHeight;
+                    const id = section.getAttribute('id');
+                    
+                    if (scrollPos >= top && scrollPos < top + height) {
+                        nav.setAttribute('data-current-section', id);
+                    }
+                });
+            }
+            
+            // Run on scroll and page load
+            window.addEventListener('scroll', updateNavBackground);
+            window.addEventListener('load', updateNavBackground);
+        </script>
+
+    </body>
+</html>
