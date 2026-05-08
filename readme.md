@@ -9,6 +9,10 @@ The site is hosted via GitHub Pages at:
 ```
 https://idaviet.github.io/personal_website/
 ```
+and
+```
+www.isaacdaviet.info
+```
 
 ## Pages
 
