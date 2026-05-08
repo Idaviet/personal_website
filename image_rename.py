@@ -1,6 +1,13 @@
+"""
+quick script to rename photos in folder for ease of implementation into html file.
+"""
+
 import os
 
+### folder containing trip specific subfolders
 folder = '/Users/isaac_daviet/Desktop/coding/personal_website/assets/img/photos_page'
+
+### trip subfolder names
 trips = ['alps', 'florida', 'japan', 'new_york', 'north_cascades', 'oregon_coast', 'paris', 'southern_europe', 'sweden']
 
 for trip in trips:
