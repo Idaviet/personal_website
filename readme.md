@@ -63,4 +63,4 @@ python image_rename.py --dir assets/img/photos_page/new_trip/ --prefix photo_
 
 ## Deployment
 
-This repository is configured for GitHub Pages. Any push to `main` is automatically deployed.
+This repository is configured for GitHub Pages. Any push to `main` is automatically deployed to ```www.isaacdaviet.info```
