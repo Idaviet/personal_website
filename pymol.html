@@ -196,7 +196,8 @@
                     }
                 });
                 viewer = $3Dmol.createViewer('protein-viewer', {
-                    backgroundColor: '0x1a1a2e',
+                    // backgroundColor: '0x1a1a2e',
+                    backgroundColor: 'white',
                 });
                 $3Dmol.download('pdb:' + pdbId, viewer, function() {
                     viewer.clear(); 
