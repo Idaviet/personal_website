@@ -102,40 +102,41 @@
                             Clear Highlights
                         </button>
                     </div>
+                    <div class="mt-3 mb-2">
+                        <b>Style:</b>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('cartoon')">Cartoon</button>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('ribbon')">Ribbon</button>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('stick')">Stick</button>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('sphere')">Sphere</button>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('surface')">Surface</button>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('line')">Lines</button>
+                    </div>
 
                     
                     <!-- Antigen Sequence -->
+                    <!--
                     <div class="mb-3">
                         <label class="form-label fw-bold">Full Antigen Protein Sequence </label>
                         <textarea id="ag-seq" class="form-control" rows="3" 
                             placeholder="MFVFLVLLPLVSSQCVNLTTRTQLP..."
                         ></textarea>
                     </div>
+                    -->
                     
                     <!-- Run Button -->
-                    <button id="run-analysis" class="btn btn-primary mb-4">
+                    <!-- <button id="run-analysis" class="btn btn-primary mb-4">
                         <i class="fa-solid fa-flask me-2"></i>Run Epitope Analysis
-                    </button>
+                    </button> -->
                     
                     <div id="protein-viewer"></div>
                     
                     <div class="mt-4">
 
                         <p class="small text-muted">Click and drag to rotate. Scroll to zoom.</p>
-                        <div class="mt-3 mb-2">
-                            <b>Style:</b>
-                            <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('cartoon')">Cartoon</button>
-                            <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('ribbon')">Ribbon</button>
-                            <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('stick')">Stick</button>
-                            <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('sphere')">Sphere</button>
-                            <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('surface')">Surface</button>
-                            <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('line')">Lines</button>
-                        </div>
                     </div>
 
-
                     <div class="mt-5">
-                        <h3 class="mb-4">Epitope Analysis</h3>
+                        <!-- <h3 class="mb-4">Epitope Analysis</h3> -->
                         
                         <!-- Status -->
                         <div id="analysis-status" class="mb-3" style="display:none;">
@@ -215,11 +216,6 @@
                     viewer.setStyle({}, {invisible: true})
                     viewer.setStyle(sel, {cartoon: {color: colr, style: 'trace', thickness: 0.3}});
                 }
-                // if (highlights_on === 'true'){
-                //     parseCSV(fileInput.files[0], function(residues) {
-                //         highlightAllEpitopes(residues);
-                //     });
-                // }
                 viewer.render();
 
                 // return
@@ -286,7 +282,8 @@
 
         </script>
 
-        <script>
+        <!-- Original Epitope Analysis Script-->
+        <!-- <script>
             document.getElementById('run-analysis').addEventListener('click', async function() {
                 const fileInput = document.getElementById('epitope-file');
                 const statusDiv = document.getElementById('analysis-status');
@@ -312,7 +309,7 @@
                 formData.append('file', fileInput.files[0]);
                 formData.append('start_pos', document.getElementById('start-pos').value || '');
                 formData.append('end_pos', document.getElementById('end-pos').value || '');
-                formData.append('ag_seq', document.getElementById('ag-seq').value);
+                // formData.append('ag_seq', document.getElementById('ag-seq').value);
                 
                 try {
                     const response = await fetch('http://localhost:5000/analyze', {
@@ -356,7 +353,7 @@
                     errorDiv.style.display = 'block';
                 }
             });
-        </script>
+        </script> -->
         <script>
             // Amino acid one-letter to three-letter code mapping
             const aa1to3 = {
@@ -393,7 +390,7 @@
             }
 
             function highlightAllEpitopes(residues, only_in_selection) {
-                const seq = document.getElementById('ag-seq').value.trim();
+                // const seq = document.getElementById('ag-seq').value.trim();
                 let highlights_on = 'true';
 
                 const start = parseInt(document.getElementById('start-pos').value) || 1;
@@ -401,12 +398,12 @@
                 
                 // Validate against sequence if provided
                 let validResidues = residues;
-                if (seq) {
-                    validResidues = residues.filter(r => {
-                        if (r.pos < 1 || r.pos > seq.length) return false;
-                        return seq[r.pos - 1].toUpperCase() === r.aa.toUpperCase();
-                    });
-                }
+                // if (seq) {
+                //     validResidues = residues.filter(r => {
+                //         if (r.pos < 1 || r.pos > seq.length) return false;
+                //         return seq[r.pos - 1].toUpperCase() === r.aa.toUpperCase();
+                //     });
+                // }
                 
                 // Deduplicate by position
                 const seen = new Set();
@@ -428,9 +425,9 @@
                     if (style_hold === 'surface') {
                         viewer.setStyle(sel, {cartoon: {color: '#fca903', opacity: 0}});
                         viewer.addSurface($3Dmol.SurfaceType.VDW, {opacity: 0.99, color: '#fca903'}, sel);
-                    } else {
-                        viewer.setStyle(sel, {[style_hold]: {color: '#fca903', scale: 1, opacity: 1}});
-                    }
+                    } else if (style_hold === "ribbon"){
+                        viewer.setStyle(sel, {cartoon: {color: '#fca903', style: 'trace', thickness: 0.3}});
+                    } else {viewer.setStyle(sel, {[style_hold]: {color: '#fca903', scale: 1, opacity: 1}});}
                 });
 
                 // For non-surface modes, hide residues outside selection
