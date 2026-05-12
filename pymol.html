@@ -46,28 +46,82 @@
             <section class="resume-section" id="protein-viewer-section">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Epitope Mapper</h2>
-                    
-                    <div id="protein-viewer"></div>
-                    
-                    <!-- Old version of pdb and style input -->
+
+                    <!-- PDB ID Input-->
                     <div class="mt-4">
                         <p class="text-muted small">
-                            <b>PDB ID:</b> 
+                            <b>Antigen of Interest PDB ID:</b>
+                        <br> 
                             <input type="text" id="pdb-input" class="form-control d-inline-block w-auto ms-2" 
                                 placeholder="6VSB" value="6VSB" style="width: 120px;">
                             <button id="pdb-go" class="btn btn-sm btn-outline-primary ms-2">Load</button>
                         </p>
+                    </div>
 
-                            <!-- <select id="pdb-select" class="form-select d-inline-block w-auto ms-2">
-                                <option value="6VSB">6VSB - SARS-COV2 Spike</option>
-                                <option value="4hhb">4HHB - Hemoglobin</option>
-                                <option value="1aoi">1AOI - HIV-1 Protease</option>
-                                <option value="2lyz">2LYZ - Lysozyme</option>
-                                <option value="1crn">1CRN - Crambin</option>
-                            </select>
-                        </p> -->
+                    <!-- UNIPROT ID Input. TO BE FINISHED LATER-->
+                    <!-- <div class="mt-4">
+                        <p class="text-muted small">
+                            <b>Antigen of Interest UNIPROT ID:</b>
+                        <br> 
+                            <input type="text" id="pdb-input" class="form-control d-inline-block w-auto ms-2" 
+                                placeholder="6VSB" value="6VSB" style="width: 120px;">
+                            <button id="pdb-go" class="btn btn-sm btn-outline-primary ms-2">Load</button>
+                        </p>
+                    </div> -->
 
-                        <p class="small text-muted">Click and drag to rotate. Scroll to zoom. Right-click to pan.</p>
+                    <!-- Start / End Positions -->
+                    <div class="row mb-3 align-items-end">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Start Position</label>
+                            <input type="number" id="start-pos" class="form-control" placeholder="e.g., 319">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">End Position</label>
+                            <input type="number" id="end-pos" class="form-control" placeholder="e.g., 541">
+                        </div>
+                        <div class="col-md-auto">
+                            <!-- <button id="range-go" class="btn btn-sm btn-outline-primary">Filter</button> -->
+                            <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle(style_hold)">Filter</button>
+                        </div>
+                    </div>
+
+
+                    <!-- File Upload -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Upload IEDB Epitope CSV</label>
+                        <input type="file" id="epitope-file" class="form-control" accept=".csv">
+                    </div>
+                    <div class="mt-2">
+                        <button id="highlight-all-epitopes" class="btn btn-sm btn-outline-success">
+                            <i class="fa-solid fa-highlighter me-1"></i>Highlight All Epitopes
+                        </button>
+                        <button id="highlight-epitopes-in-sel" class="btn btn-sm btn-outline-success">
+                            <i class="fa-solid fa-highlighter me-1"></i>Highlight Epitopes in Selection
+                        </button>
+                        <button id="clear-epitopes" class="btn btn-sm btn-outline-secondary ms-1">
+                            Clear Highlights
+                        </button>
+                    </div>
+
+                    
+                    <!-- Antigen Sequence -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Full Antigen Protein Sequence </label>
+                        <textarea id="ag-seq" class="form-control" rows="3" 
+                            placeholder="MFVFLVLLPLVSSQCVNLTTRTQLP..."
+                        ></textarea>
+                    </div>
+                    
+                    <!-- Run Button -->
+                    <button id="run-analysis" class="btn btn-primary mb-4">
+                        <i class="fa-solid fa-flask me-2"></i>Run Epitope Analysis
+                    </button>
+                    
+                    <div id="protein-viewer"></div>
+                    
+                    <div class="mt-4">
+
+                        <p class="small text-muted">Click and drag to rotate. Scroll to zoom.</p>
                         <div class="mt-3 mb-2">
                             <b>Style:</b>
                             <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('cartoon')">Cartoon</button>
@@ -82,37 +136,6 @@
 
                     <div class="mt-5">
                         <h3 class="mb-4">Epitope Analysis</h3>
-                        
-                        <!-- File Upload -->
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Upload IEDB Epitope CSV</label>
-                            <input type="file" id="epitope-file" class="form-control" accept=".csv">
-                        </div>
-                        
-                        <!-- Antigen Sequence -->
-                        <div class="mb-3">
-                            <label class="form-label fw-bold">Full Antigen Protein Sequence </label>
-                            <textarea id="ag-seq" class="form-control" rows="3" 
-                                placeholder="MFVFLVLLPLVSSQCVNLTTRTQLPPAYTNSFTRGVYYPDKVFRSSVLHSTQDLFLPFFSNVTWFHAIHVSGTNGTKRFDNPVLPFNDGVYFASTEKSNIIRGWIFGTTLDSKTQSLLIVNNATNVVIKVCEFQFCNDPFLGVYYHKNNKSWMESEFRVYSSANNCTFEYVSQPFLMDLEGKQGNFKNLREFVFKNIDGYFKIYSKHTPINLVRDLPQGFSALEPLVDLPIGINITRFQTLLALHRSYLTPGDSSSGWTAGAAAYYVGYLQPRTFLLKYNENGTITDAVDCALDPLSETKCTLKSFTVEKGIYQTSNFRVQPTESIVRFPNITNLCPFGEVFNATRFASVYAWNRKRISNCVADYSVLYNSASFSTFKCYGVSPTKLNDLCFTNVYADSFVIRGDEVRQIAPGQTGKIADYNYKLPDDFTGCVIAWNSNNLDSKVGGNYNYLYRLFRKSNLKPFERDISTEIYQAGSTPCNGVEGFNCYFPLQSYGFQPTNGVGYQPYRVVVLSFELLHAPATVCGPKKSTNLVKNKCVNFNFNGLTGTGVLTESNKKFLPFQQFGRDIADTTDAVRDPQTLEILDITPCSFGGVSVITPGTNTSNQVAVLYQDVNCTEVPVAIHADQLTPTWRVYSTGSNVFQTRAGCLIGAEHVNNSYECDIPIGAGICASYQTQTNSPRRARSVASQSIIAYTMSLGAENSVAYSNNSIAIPTNFTISVTTEILPVSMTKTSVDCTMYICGDSTECSNLLLQYGSFCTQLNRALTGIAVEQDKNTQEVFAQVKQIYKTPPIKDFGGFNFSQILPDPSKPSKRSFIEDLLFNKVTLADAGFIKQYGDCLGDIAARDLICAQKFNGLTVLPPLLTDEMIAQYTSALLAGTITSGWTFGAGAALQIPFAMQMAYRFNGIGVTQNVLYENQKLIANQFNSAIGKIQDSLSSTASALGKLQDVVNQNAQALNTLVKQLSSNFGAISSVLNDILSRLDKVEAEVQIDRLITGRLQSLQTYVTQQLIRAAEIRASANLAATKMSECVLGQSKRVDFCGKGYHLMSFPQSAPHGVVFLHVTYVPAQEKNFTTAPAICHDGKAHFPREGVFVSNGTHWFVTQRNFYEPQIITTDNTFVSGNCDVVIGIVNNTVYDPLQPELDSFKEELDKYFKNHTSPDVDLGDISGINASVVNIQKEIDRLNEVAKNLNESLIDLQELGKYEQYIKWPWYIWLGFIAGLIAIVMVTIMLCCMTSCCSCLKGCCSCGSCCKFDEDDSEPVLKGVKLHYT"
-                            ></textarea>
-                        </div>
-                        
-                        <!-- Start / End Positions -->
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">Start Position</label>
-                                <input type="number" id="start-pos" class="form-control" placeholder="e.g., 319" >
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">End Position</label>
-                                <input type="number" id="end-pos" class="form-control" placeholder="e.g., 541" >
-                            </div>
-                        </div>
-                        
-                        <!-- Run Button -->
-                        <button id="run-analysis" class="btn btn-primary mb-4">
-                            <i class="fa-solid fa-flask me-2"></i>Run Epitope Analysis
-                        </button>
                         
                         <!-- Status -->
                         <div id="analysis-status" class="mb-3" style="display:none;">
@@ -159,66 +182,108 @@
         <script>
             let viewer;
             let currentPdb = '6vsb';
+            let style_hold = 'cartoon';
             
-            function changeStyle(style) {
+            function changeStyle(style, colr) {
                 viewer.removeAllSurfaces();
-                viewer.setStyle({}, {});
-                
+                let start = parseInt(document.getElementById('start-pos').value);
+                let end = parseInt(document.getElementById('end-pos').value);
+
+                if (!start) start =1
+                if (!end) end = 9999999
+                if (!colr) colr = '#033dfc'
+                const sel = (start && end) ? {resi: start + '-' + end} : {};
+                style_hold = style
+
                 if (style === 'cartoon') {
-                    viewer.setStyle({}, {cartoon: {color: 'spectrum'}});
+                    viewer.setStyle({}, {invisible: true})
+                    viewer.setStyle(sel, {cartoon: {color: colr}});
                 } else if (style === 'stick') {
-                    viewer.setStyle({}, {stick: {color: 'spectrum', radius: 0.15}});
+                    viewer.setStyle({}, {invisible: true})
+                    viewer.setStyle(sel, {stick: {color: colr, radius: 0.15}});
                 } else if (style === 'sphere') {
-                    viewer.setStyle({}, {sphere: {color: 'spectrum', scale: 1.0}});
+                    viewer.setStyle({}, {invisible: true})
+                    viewer.setStyle(sel, {sphere: {color: colr, scale: 1.0}});
                 } else if (style === 'line') {
-                    viewer.setStyle({}, {line: {color: 'spectrum'}});
+                    viewer.setStyle({}, {invisible: true})
+                    viewer.setStyle(sel, {line: {color: colr}});
                 } else if (style === 'surface') {
-                    viewer.setStyle({}, {cartoon: {color: 'spectrum', opacity: 0.3}});
-                    viewer.addSurface($3Dmol.SurfaceType.VDW, {opacity: 0.8, color: 'spectrum'});
+                    viewer.setStyle({}, {invisible: true})
+                    viewer.setStyle(sel, {cartoon: {color: colr, opacity: 0}});
+                    viewer.addSurface($3Dmol.SurfaceType.VDW, {opacity: 0.99, color: colr}, sel);
                 } else if (style === 'ribbon') {
-                    viewer.setStyle({}, {cartoon: {color: 'spectrum', style: 'trace', thickness: 0.3}});
+                    viewer.setStyle({}, {invisible: true})
+                    viewer.setStyle(sel, {cartoon: {color: colr, style: 'trace', thickness: 0.3}});
                 }
+                // if (highlights_on === 'true'){
+                //     parseCSV(fileInput.files[0], function(residues) {
+                //         highlightAllEpitopes(residues);
+                //     });
+                // }
                 viewer.render();
+
+                // return
             }
-            
+
             function initViewer(pdbId) {
                 document.getElementById('protein-viewer').innerHTML = '';
-                document.getElementById('pdb-go').addEventListener('click', function() {
-                    const pdbId = document.getElementById('pdb-input').value.trim();
-                    if (pdbId) {
-                        initViewer(pdbId);
-                    }
-                });
-                document.getElementById('pdb-input').addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        const pdbId = this.value.trim();
-                        if (pdbId) initViewer(pdbId);
-                    }
-                });
+                
                 viewer = $3Dmol.createViewer('protein-viewer', {
-                    // backgroundColor: '0x1a1a2e',
                     backgroundColor: 'white',
                 });
+                
                 $3Dmol.download('pdb:' + pdbId, viewer, function() {
-                    viewer.clear(); 
-                    viewer.setStyle({}, {cartoon: {color: 'spectrum'}});
+                    viewer.clear();
+                    viewer.setStyle({}, {cartoon: {color: '#033dfc'}});
                     viewer.zoomTo();
                     viewer.render();
                     viewer.zoom(1.2);
+                    
+                    // Apply start/end range after load
+                    applyRange();
                 });
-                setTimeout(() => {
-                    viewer.setStyle({}, {cartoon: {color: 'spectrum'}});
-                    viewer.render();
-                }, 1000);
             }
-            
+
             initViewer(currentPdb);
 
+            setTimeout(() => {
+                viewer.setStyle({}, {cartoon: {color: '#033dfc'}});
+                viewer.render();
+            }, 1000);
 
-            
-            document.getElementById('pdb-select').addEventListener('change', function() {
-                initViewer(this.value);
+
+            document.getElementById('pdb-go').addEventListener('click', function() {
+                const pdbId = document.getElementById('pdb-input').value.trim();
+                if (pdbId) initViewer(pdbId);
+                setTimeout(() => {
+                    viewer.setStyle(sel, {cartoon: {color: '#033dfc'}});
+                    viewer.render();
+                    }, 1000);
             });
+
+            document.getElementById('pdb-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const pdbId = this.value.trim();
+                    if (pdbId) initViewer(pdbId);
+                    setTimeout(() => {
+                        viewer.setStyle(sel, {cartoon: {color: '#033dfc'}});
+                        viewer.render();
+                        }, 1000);
+                    }
+            });
+
+            document.getElementById('start-pos').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    changeStyle(style_hold);
+                    }
+            });
+
+            document.getElementById('end-pos').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    changeStyle(style_hold);
+                    }
+            });
+
         </script>
 
         <script>
@@ -291,6 +356,125 @@
                     errorDiv.style.display = 'block';
                 }
             });
+        </script>
+        <script>
+            // Amino acid one-letter to three-letter code mapping
+            const aa1to3 = {
+                'A':'ALA','C':'CYS','D':'ASP','E':'GLU','F':'PHE',
+                'G':'GLY','H':'HIS','I':'ILE','K':'LYS','L':'LEU',
+                'M':'MET','N':'ASN','P':'PRO','Q':'GLN','R':'ARG',
+                'S':'SER','T':'THR','V':'VAL','W':'TRP','Y':'TYR'
+            };
+
+            function parseCSV(file, callback) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const text = e.target.result;
+                    const rows = text.split('\n');
+                    const headers = rows[0].split(',');
+                    const epitopeColIndex = headers.findIndex(h => 
+                        h.trim().replace(/"/g,'') === 'Epitope - Name');
+                    
+                    const residues = [];
+                    for (let i = 1; i < rows.length; i++) {
+                        const cols = rows[i].split(',');
+                        const epitopeStr = cols[epitopeColIndex];
+                        if (!epitopeStr) continue;
+                        
+                        // Parse "G446, Y449" style strings
+                        const matches = epitopeStr.matchAll(/([A-Z])(\d+)/g);
+                        for (const match of matches) {
+                            residues.push({aa: match[1], pos: parseInt(match[2])});
+                        }
+                    }
+                    callback(residues);
+                };
+                reader.readAsText(file);
+            }
+
+            function highlightAllEpitopes(residues, only_in_selection) {
+                const seq = document.getElementById('ag-seq').value.trim();
+                let highlights_on = 'true';
+
+                const start = parseInt(document.getElementById('start-pos').value) || 1;
+                const end = parseInt(document.getElementById('end-pos').value) || 999999;
+                
+                // Validate against sequence if provided
+                let validResidues = residues;
+                if (seq) {
+                    validResidues = residues.filter(r => {
+                        if (r.pos < 1 || r.pos > seq.length) return false;
+                        return seq[r.pos - 1].toUpperCase() === r.aa.toUpperCase();
+                    });
+                }
+                
+                // Deduplicate by position
+                const seen = new Set();
+                const unique = validResidues.filter(r => {
+                    const key = r.aa + '-' + r.pos;
+                    if (seen.has(key)) return false;
+                    seen.add(key);
+                    return true;
+                });
+                
+                // Apply to viewer
+                unique.forEach(r => {
+                    const aa3 = aa1to3[r.aa.toUpperCase()] || 'UNK';
+                    const sel = {resi: r.pos, resn: aa3};
+                    
+                    // Skip residues outside selection
+                    if (only_in_selection === true && (r.pos < start || r.pos > end)) return;
+
+                    if (style_hold === 'surface') {
+                        viewer.setStyle(sel, {cartoon: {color: '#fca903', opacity: 0}});
+                        viewer.addSurface($3Dmol.SurfaceType.VDW, {opacity: 0.99, color: '#fca903'}, sel);
+                    } else {
+                        viewer.setStyle(sel, {[style_hold]: {color: '#fca903', scale: 1, opacity: 1}});
+                    }
+                });
+
+                // For non-surface modes, hide residues outside selection
+                if (only_in_selection === true && style_hold !== 'surface') {
+                    viewer.setStyle({resi: '0-' + (start - 1)}, {invisible: true});
+                    viewer.setStyle({resi: (end + 1) + '-999999'}, {invisible: true});
+                }
+
+                viewer.render();                
+                // Show summary
+                // alert(`Highlighted ${style_hold} unique epitope residues on the structure.`);
+            }
+
+            // epitope highlight buttons
+            document.getElementById('highlight-all-epitopes').addEventListener('click', function() {
+                const fileInput = document.getElementById('epitope-file');
+                if (!fileInput.files.length) {
+                    alert('Please upload an epitope CSV file first.');
+                    return;
+                }
+                let highlights_on = 'true'
+                parseCSV(fileInput.files[0], function(residues) {
+                    highlightAllEpitopes(residues);
+                });
+            });
+
+            document.getElementById('highlight-epitopes-in-sel').addEventListener('click', function() {
+                const fileInput = document.getElementById('epitope-file');
+                if (!fileInput.files.length) {
+                    alert('Please upload an epitope CSV file first.');
+                    return;
+                }
+                let highlights_on = 'true'
+                parseCSV(fileInput.files[0], function(residues) {
+                    highlightAllEpitopes(residues, true);
+                });
+            });
+
+            document.getElementById('clear-epitopes').addEventListener('click', function() {
+                changeStyle(style_hold);
+                highlights_on = 'false';  // reapply current style to clear highlights
+            });
+
+
         </script>
 
     </body>
