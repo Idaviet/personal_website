@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>Isaac G.L. Daviet - Epitope Mapper</title>
+        <title>Isaac G.L. Daviet - Epitope Visualizer</title>
         <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
         <!-- Font Awesome -->
         <script src="https://use.fontawesome.com/releases/v7.0.0/js/all.js" crossorigin="anonymous"></script>
@@ -44,7 +44,7 @@
         <div class="container-fluid p-0">
             <section class="resume-section" id="protein-viewer-section">
                 <div class="resume-section-content">
-                    <h2 class="mb-5">Epitope Mapper</h2>
+                    <h2 class="mb-5">Epitope Visualizer</h2>
 
                     <!-- PDB ID Input-->
                     <div class="mt-4">
@@ -60,9 +60,14 @@
                     <div class="mb-3">
                         <label class="form-label fw-bold"><br>Upload IEDB Epitope CSV</label>
                         <input type="file" id="epitope-file" class="form-control" accept=".csv">
-                        <!-- <p><br></p> -->
                     </div>
 
+                    <div class="mt-3 mb-2">
+                        <!-- <b>Reload Default Sars-Cov2 Spike Protein Data:</b> -->
+                        <button id="default-epitope-btn" class="btn btn-sm btn-outline-success">
+                            <i class="fa-solid fa-upload"></i>Reload Default Sars-Cov2 Spike Protein Data</button>                        
+                        <p><br></p>
+                    </div>
 
                     <!-- Start / End Positions -->
                     <div class="row mb-3 align-items-end">
@@ -78,9 +83,7 @@
                             <!-- <button id="range-go" class="btn btn-sm btn-outline-primary">Filter</button> -->
                             <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle(style_hold)">Filter</button>
                         </div>
-                        <p><br></p>
                     </div>
-
                     <div class="mt-3 mb-2">
                         <b>Style:</b>
                         <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('cartoon')">Cartoon</button>
@@ -89,21 +92,12 @@
                         <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('sphere')">Sphere</button>
                         <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('surface')">Surface</button>
                         <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('line')">Lines</button>
-                        <p><br></p>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="toggleBackground()">Toggle Background</button>
+                        <p><br</p>
                     </div>
-
-                    <div class="mt-2">
-                        <button id="highlight-all-epitopes" class="btn btn-sm btn-outline-success">
-                            <i class="fa-solid fa-highlighter me-1"></i>Highlight All Epitopes
-                        </button>
-                        <button id="highlight-epitopes-in-sel" class="btn btn-sm btn-outline-success">
-                            <i class="fa-solid fa-highlighter me-1"></i>Highlight Epitopes in Selection
-                        </button>
-                        <button id="clear-epitopes" class="btn btn-sm btn-outline-secondary ms-1">
-                            Clear Highlights
-                        </button>
+                    <div class="mt-4">
+                        <p class="small text-muted">Click and drag to rotate. Scroll to zoom.</p>
                     </div>
-
                     
                     <!-- Antigen Sequence -->
                     <!--
@@ -121,17 +115,17 @@
                     </button> -->
                     
                     <div id="protein-viewer"></div>
-                    
-                    <div class="mt-4">
 
-                        <p class="small text-muted">Click and drag to rotate. Scroll to zoom.</p>
-                    </div>
-
-                    <div class="mt-3 mb-2">
-                        <!-- <b>Reload Default Sars-Cov2 Spike Protein Data:</b> -->
-                        <button id="default-epitope-btn" class="btn btn-sm btn-outline-success">
-                            <i class="fa-solid fa-upload"></i>Reload Default Sars-Cov2 Spike Protein Data</button>                        
-                        <p><br></p>
+                    <div class="mt-2">
+                        <button id="highlight-all-epitopes" class="btn btn-sm btn-outline-success">
+                            <i class="fa-solid fa-highlighter me-1"></i>Highlight All Epitopes
+                        </button>
+                        <button id="highlight-epitopes-in-sel" class="btn btn-sm btn-outline-success">
+                            <i class="fa-solid fa-highlighter me-1"></i>Highlight Epitopes in Selection
+                        </button>
+                        <button id="clear-epitopes" class="btn btn-sm btn-outline-secondary ms-1">
+                            Clear Highlights
+                        </button>
                     </div>
 
                     <div class="mt-5">
@@ -182,7 +176,10 @@
         <script>
             let viewer;
             let currentPdb = '6vsb';
+            let activePdb = '6vsb';
             let style_hold = 'cartoon';
+            let currentEpitopeResidues = null;
+            let darkBackground = false;
             
             function changeStyle(style, colr) {
                 viewer.removeAllSurfaces();
@@ -191,7 +188,7 @@
 
                 if (!start) start =1
                 if (!end) end = 9999999
-                if (!colr) colr = '#033dfc'
+                if (!colr) colr = '#3d6aff'
                 const sel = (start && end) ? {resi: start + '-' + end} : {};
                 style_hold = style
 
@@ -217,11 +214,17 @@
                 }
                 viewer.render();
 
-                // return
+                    if (currentEpitopeResidues) {
+                        highlightAllEpitopes(currentEpitopeResidues);
+                    }
             }
 
-            function initViewer(pdbId) {
+            function initViewer(pdbId, highlight_default_epis, onLoaded) {
+                activePdb = pdbId.toLowerCase();
                 document.getElementById('protein-viewer').innerHTML = '';
+                if (highlight_default_epis === false) {
+                    currentEpitopeResidues = null;
+                }
                 
                 viewer = $3Dmol.createViewer('protein-viewer', {
                     backgroundColor: 'white',
@@ -238,36 +241,55 @@
                 setTimeout(() => {
                     changeStyle(style_hold);
                     viewer.render();
+                    if (highlight_default_epis !== false){
+                        if (onLoaded) onLoaded();}
                 }, 1000);
 
-                let upload_complete = true
             }
 
-            initViewer(currentPdb);
+            // Load the default CSV, then init the viewer and highlight epitopes
+            fetch('assets/projects/iedb_default_SarsCov2_spike_epitopes.csv')
+                .then(response => {
+                    if (!response.ok) throw new Error('File not found');
+                    return response.text();
+                })
+                .then(csvText => {
+                    initViewer(currentPdb, true, function() {
+                        parseCSVFromText(csvText, function(residues) {
+                            currentEpitopeResidues = residues;
+                            highlightAllEpitopes(residues);
+                        });
+                    });
+                })
+                .catch(err => {
+                    // If CSV fails, still load the viewer, just without highlights
+                    console.warn('Default epitope CSV not loaded:', err.message);
+                    initViewer(currentPdb);
+                });
 
-            // setTimeout(() => {
-            //     viewer.setStyle({}, {cartoon: {color: '#033dfc'}});
-            //     viewer.render();
-            // }, 1000);
+                function toggleBackground() {
+                    if (!viewer) return;
+
+                    if (darkBackground) {
+                        viewer.setBackgroundColor('white');
+                        darkBackground = false;
+                    } else {
+                        viewer.setBackgroundColor('#1a1a2e');
+                        darkBackground = true;
+                    }
+                    viewer.render();
+                }
 
 
             document.getElementById('pdb-go').addEventListener('click', function() {
                 const pdbId = document.getElementById('pdb-input').value.trim();
-                if (pdbId) initViewer(pdbId);
-                setTimeout(() => {
-                    viewer.setStyle(sel, {cartoon: {color: '#033dfc'}});
-                    viewer.render();
-                    }, 1000);
+                if (pdbId) initViewer(pdbId, false);
             });
 
             document.getElementById('pdb-input').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     const pdbId = this.value.trim();
-                    if (pdbId) initViewer(pdbId);
-                    setTimeout(() => {
-                        viewer.setStyle(sel, {cartoon: {color: '#033dfc'}});
-                        viewer.render();
-                        }, 1000);
+                    if (pdbId) initViewer(pdbId, false);
                     }
             });
 
@@ -465,63 +487,99 @@
             }
 
             // epitope highlight buttons
-            document.getElementById('highlight-all-epitopes').addEventListener('click', function() {
+            document.getElementById('highlight-all-epitopes').addEventListener('click', async function() {
                 const fileInput = document.getElementById('epitope-file');
+                const pdb_id = document.getElementById('highlight-all-epitopes')
+
                 if (!fileInput.files.length) {
-                    alert('Please upload an epitope CSV file first.');
-                    return;
+                    // No file uploaded — fetch the default CSV
+                    try {
+                        const response = await fetch('assets/projects/iedb_default_SarsCov2_spike_epitopes.csv');
+                        if (!response.ok) throw new Error('File not found');
+                        const csvText = await response.text();
+                        parseCSVFromText(csvText, function(residues) {
+                            currentEpitopeResidues = residues;
+                            highlightAllEpitopes(residues);
+                        });
+                        if (activePdb.toLowerCase() !== '6vsb') {
+                            alert("CSV file not specified. Loading default Sars-Cov2 epitopes.");
+                        }
+                    } catch (err) {
+                        alert('Error loading default epitopes: ' + err.message);
+                    }
+
+                } else {
+                    // File uploaded — use it
+                    parseCSV(fileInput.files[0], function(residues) {
+                        currentEpitopeResidues = residues;
+                        highlightAllEpitopes(residues);
+                    });
                 }
-                let highlights_on = 'true'
-                parseCSV(fileInput.files[0], function(residues) {
-                    highlightAllEpitopes(residues);
-                });
             });
 
-            document.getElementById('highlight-epitopes-in-sel').addEventListener('click', function() {
+            document.getElementById('highlight-epitopes-in-sel').addEventListener('click', async function() {
                 const fileInput = document.getElementById('epitope-file');
+
                 if (!fileInput.files.length) {
-                    alert('Please upload an epitope CSV file first.');
-                    return;
+                    // No file uploaded — fetch the default CSV
+                    try {
+                        const response = await fetch('assets/projects/iedb_default_SarsCov2_spike_epitopes.csv');
+                        if (!response.ok) throw new Error('File not found');
+                        const csvText = await response.text();
+                        parseCSVFromText(csvText, function(residues) {
+                            currentEpitopeResidues = residues;
+                            highlightAllEpitopes(residues, true);
+                        });
+                        if (activePdb.toLowerCase() !== '6vsb') {
+                            alert("CSV file not specified. Loading default Sars-Cov2 epitopes.");
+                        }
+                    } catch (err) {
+                        alert('Error loading default epitopes: ' + err.message);
+                    }
+
+                } else {
+                    // File uploaded — use it
+                    parseCSV(fileInput.files[0], function(residues) {
+                        currentEpitopeResidues = residues;
+                        highlightAllEpitopes(residues, true);
+                    });
                 }
-                let highlights_on = 'true'
-                parseCSV(fileInput.files[0], function(residues) {
-                    highlightAllEpitopes(residues, true);
-                });
             });
+
 
             document.getElementById('default-epitope-btn').addEventListener('click', async function() {
-                let pdb_id = '6vsb'
-                initViewer(pdb_id);
-        
+                const btn = this;
+                btn.disabled = true;
+                btn.textContent = 'Loading...';
 
-                // const btn = this;
-                // btn.disabled = true;
-                // btn.textContent = 'Loading...';
-                
-                // try {
-                //     const response = await fetch('assets/projects/iedb_default_SarsCov2_spike_epitopes.csv');
-                //     if (!response.ok) throw new Error('File not found');
-                    
-                //     const csvText = await response.text();
-                    
-                //     // Parse directly from the text
-                //     parseCSVFromText(csvText, function(residues) {
-                //         highlightAllEpitopes(residues);
-                //     });
-                // } catch (err) {
-                //     alert('Error: ' + err.message);
-                // } finally {
-                //     btn.disabled = false;
-                //     btn.textContent = 'Reload Default Sars-Cov2 Spike Protein Data';
-                // }
+                try {
+                    // Step 1: Fetch the CSV first (it's fast and doesn't depend on the viewer)
+                    const response = await fetch('assets/projects/iedb_default_SarsCov2_spike_epitopes.csv');
+                    if (!response.ok) throw new Error('File not found');
+                    const csvText = await response.text();
+
+                    // Step 2: Reload the 6VSB structure, and highlight AFTER it's loaded
+                    initViewer('6vsb', true, function() {
+                        // This callback runs once the PDB is fully loaded and rendered
+                        parseCSVFromText(csvText, function(residues) {
+                            currentEpitopeResidues = residues;   // <-- ADD THIS
+                            highlightAllEpitopes(residues);
+                        });
+                        btn.disabled = false;
+                        btn.textContent = 'Load Default';
+                    });
+
+                } catch (err) {
+                    alert('Error: ' + err.message);
+                    btn.disabled = false;
+                    btn.textContent = 'Load Default';
+                }
             });
-
 
             document.getElementById('clear-epitopes').addEventListener('click', function() {
+                currentEpitopeResidues = null;
                 changeStyle(style_hold);
-                highlights_on = 'false';  // reapply current style to clear highlights
             });
-
 
         </script>
         <script>
