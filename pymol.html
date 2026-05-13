@@ -36,7 +36,6 @@
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="index.html">Resume</a></li>
                     <li class="nav-item"><a class="nav-link" href="photos.html">Photos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pymol.html">Epitope Mapper</a></li>
                 </ul>
             </div>
         </nav>
@@ -49,25 +48,28 @@
 
                     <!-- PDB ID Input-->
                     <div class="mt-4">
-                        <p class="text-muted small">
+                        <p class="form-label fw-bold">
                             <b>Antigen of Interest PDB ID:</b>
-                        <br> 
                             <input type="text" id="pdb-input" class="form-control d-inline-block w-auto ms-2" 
                                 placeholder="6VSB" value="6VSB" style="width: 120px;">
                             <button id="pdb-go" class="btn btn-sm btn-outline-primary ms-2">Load</button>
                         </p>
                     </div>
 
-                    <!-- UNIPROT ID Input. TO BE FINISHED LATER-->
-                    <!-- <div class="mt-4">
-                        <p class="text-muted small">
-                            <b>Antigen of Interest UNIPROT ID:</b>
-                        <br> 
-                            <input type="text" id="pdb-input" class="form-control d-inline-block w-auto ms-2" 
-                                placeholder="6VSB" value="6VSB" style="width: 120px;">
-                            <button id="pdb-go" class="btn btn-sm btn-outline-primary ms-2">Load</button>
-                        </p>
-                    </div> -->
+                    <!-- File Upload -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold"><br>Upload IEDB Epitope CSV</label>
+                        <input type="file" id="epitope-file" class="form-control" accept=".csv">
+                        <!-- <p><br></p> -->
+                    </div>
+
+                    <div class="mt-3 mb-2">
+                        <b>Or Use Default SarsCov2 Spike Protein IEDB File:</b>
+                        <button id="default-epitope-btn" class="btn btn-sm btn-outline-success">
+                            <i class="fa-solid fa-upload"></i>Load Default</button>                        
+                        <p><br></p>
+                    </div>
+
 
                     <!-- Start / End Positions -->
                     <div class="row mb-3 align-items-end">
@@ -83,14 +85,20 @@
                             <!-- <button id="range-go" class="btn btn-sm btn-outline-primary">Filter</button> -->
                             <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle(style_hold)">Filter</button>
                         </div>
+                        <p><br></p>
                     </div>
 
-
-                    <!-- File Upload -->
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Upload IEDB Epitope CSV</label>
-                        <input type="file" id="epitope-file" class="form-control" accept=".csv">
+                    <div class="mt-3 mb-2">
+                        <b>Style:</b>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('cartoon')">Cartoon</button>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('ribbon')">Ribbon</button>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('stick')">Stick</button>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('sphere')">Sphere</button>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('surface')">Surface</button>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('line')">Lines</button>
+                        <p><br></p>
                     </div>
+
                     <div class="mt-2">
                         <button id="highlight-all-epitopes" class="btn btn-sm btn-outline-success">
                             <i class="fa-solid fa-highlighter me-1"></i>Highlight All Epitopes
@@ -101,15 +109,6 @@
                         <button id="clear-epitopes" class="btn btn-sm btn-outline-secondary ms-1">
                             Clear Highlights
                         </button>
-                    </div>
-                    <div class="mt-3 mb-2">
-                        <b>Style:</b>
-                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('cartoon')">Cartoon</button>
-                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('ribbon')">Ribbon</button>
-                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('stick')">Stick</button>
-                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('sphere')">Sphere</button>
-                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('surface')">Surface</button>
-                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="changeStyle('line')">Lines</button>
                     </div>
 
                     
@@ -389,6 +388,26 @@
                 reader.readAsText(file);
             }
 
+            function parseCSVFromText(text, callback) {
+                const rows = text.split('\n');
+                const headers = rows[0].split(',');
+                const epitopeColIndex = headers.findIndex(h => 
+                    h.trim().replace(/"/g,'') === 'Epitope - Name');
+                
+                const residues = [];
+                for (let i = 1; i < rows.length; i++) {
+                    const cols = rows[i].split(',');
+                    const epitopeStr = cols[epitopeColIndex];
+                    if (!epitopeStr) continue;
+                    
+                    const matches = epitopeStr.matchAll(/([A-Z])(\d+)/g);
+                    for (const match of matches) {
+                        residues.push({aa: match[1], pos: parseInt(match[2])});
+                    }
+                }
+                callback(residues);
+            }
+
             function highlightAllEpitopes(residues, only_in_selection) {
                 // const seq = document.getElementById('ag-seq').value.trim();
                 let highlights_on = 'true';
@@ -466,6 +485,30 @@
                 });
             });
 
+            document.getElementById('default-epitope-btn').addEventListener('click', async function() {
+                const btn = this;
+                btn.disabled = true;
+                btn.textContent = 'Loading...';
+                
+                try {
+                    const response = await fetch('assets/projects/iedb_default_SarsCov2_spike_epitopes.csv');
+                    if (!response.ok) throw new Error('File not found');
+                    
+                    const csvText = await response.text();
+                    
+                    // Parse directly from the text
+                    parseCSVFromText(csvText, function(residues) {
+                        highlightAllEpitopes(residues);
+                    });
+                } catch (err) {
+                    alert('Error: ' + err.message);
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'Upload';
+                }
+            });
+
+
             document.getElementById('clear-epitopes').addEventListener('click', function() {
                 changeStyle(style_hold);
                 highlights_on = 'false';  // reapply current style to clear highlights
@@ -473,6 +516,60 @@
 
 
         </script>
+        <script>
+            document.getElementById('uniprot-go').addEventListener('click', async function() {
+                const uniprotId = document.getElementById('uniprot-input').value.trim();
+                if (!uniprotId) {
+                    alert('Please enter a UNIPROT ID.');
+                    return;
+                }
+
+                const btn = this;
+                btn.disabled = true;
+                btn.textContent = 'Fetching...';
+
+                try {
+                    // Request JSON (always works), not CSV
+                    const url = `https://query-api.iedb.org/epitope_search?
+        parent_source_antigen_iris=cs.{UNIPROT:${uniprotId}}
+        &structure_type=eq.Discontinuous+peptide
+        &select=structure_descriptions`;
+
+                    const response = await fetch(url.replace(/\n/g, ''));
+                    
+                    if (!response.ok) {
+                        throw new Error(`IEDB returned ${response.status}`);
+                    }
+
+                    const data = await response.json();
+                    
+                    // Build CSV with Epitope - Name header
+                    let csvText = 'Epitope - Name\n';
+                    data.forEach(row => {
+                        const desc = row.structure_descriptions[0] || '';
+                        csvText += `"${desc}"\n`;
+                    });
+                    
+                    console.log('CSV contents:', csvText); // Debug: see what was built
+                    
+                    const blob = new Blob([csvText], { type: 'text/csv' });
+                    const file = new File([blob], `${uniprotId}_epitopes.csv`, { type: 'text/csv' });
+                    
+                    const dt = new DataTransfer();
+                    dt.items.add(file);
+                    document.getElementById('epitope-file').files = dt.files;
+                    
+                    alert(`Fetched ${data.length} epitopes for ${uniprotId}. Ready to highlight!`);
+                } catch (err) {
+                    alert('Error fetching epitopes: ' + err.message);
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'Fetch Epitopes';
+                }
+            });
+        </script>
+
+
 
     </body>
 </html>
