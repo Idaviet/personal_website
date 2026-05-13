@@ -126,6 +126,9 @@
                         <button id="clear-epitopes" class="btn btn-sm btn-outline-secondary ms-1">
                             Clear Highlights
                         </button>
+                        <button class="btn btn-sm btn-outline-primary ms-1" onclick="takeScreenshot()">
+                            <i class="fa-solid fa-camera me-1"></i>Screenshot
+                        </button>
                     </div>
 
                     <div class="mt-5">
@@ -279,6 +282,21 @@
                     }
                     viewer.render();
                 }
+
+                function takeScreenshot() {
+                    if (!viewer) return;
+
+                    const pngData = viewer.pngURI();
+
+                    // Create a temporary link to trigger the download
+                    const link = document.createElement('a');
+                    link.download = 'epitope_viewer_' + activePdb + '.jpeg';
+                    link.href = pngData;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+
 
 
             document.getElementById('pdb-go').addEventListener('click', function() {
