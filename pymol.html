@@ -63,13 +63,6 @@
                         <!-- <p><br></p> -->
                     </div>
 
-                    <div class="mt-3 mb-2">
-                        <b>Or Use Default SarsCov2 Spike Protein IEDB File:</b>
-                        <button id="default-epitope-btn" class="btn btn-sm btn-outline-success">
-                            <i class="fa-solid fa-upload"></i>Load Default</button>                        
-                        <p><br></p>
-                    </div>
-
 
                     <!-- Start / End Positions -->
                     <div class="row mb-3 align-items-end">
@@ -132,6 +125,13 @@
                     <div class="mt-4">
 
                         <p class="small text-muted">Click and drag to rotate. Scroll to zoom.</p>
+                    </div>
+
+                    <div class="mt-3 mb-2">
+                        <!-- <b>Reload Default Sars-Cov2 Spike Protein Data:</b> -->
+                        <button id="default-epitope-btn" class="btn btn-sm btn-outline-success">
+                            <i class="fa-solid fa-upload"></i>Reload Default Sars-Cov2 Spike Protein Data</button>                        
+                        <p><br></p>
                     </div>
 
                     <div class="mt-5">
@@ -233,18 +233,22 @@
                     viewer.zoomTo();
                     viewer.render();
                     viewer.zoom(1.2);
-                    
-                    // Apply start/end range after load
-                    applyRange();
                 });
+
+                setTimeout(() => {
+                    changeStyle(style_hold);
+                    viewer.render();
+                }, 1000);
+
+                let upload_complete = true
             }
 
             initViewer(currentPdb);
 
-            setTimeout(() => {
-                viewer.setStyle({}, {cartoon: {color: '#033dfc'}});
-                viewer.render();
-            }, 1000);
+            // setTimeout(() => {
+            //     viewer.setStyle({}, {cartoon: {color: '#033dfc'}});
+            //     viewer.render();
+            // }, 1000);
 
 
             document.getElementById('pdb-go').addEventListener('click', function() {
@@ -486,26 +490,30 @@
             });
 
             document.getElementById('default-epitope-btn').addEventListener('click', async function() {
-                const btn = this;
-                btn.disabled = true;
-                btn.textContent = 'Loading...';
+                let pdb_id = '6vsb'
+                initViewer(pdb_id);
+        
+
+                // const btn = this;
+                // btn.disabled = true;
+                // btn.textContent = 'Loading...';
                 
-                try {
-                    const response = await fetch('assets/projects/iedb_default_SarsCov2_spike_epitopes.csv');
-                    if (!response.ok) throw new Error('File not found');
+                // try {
+                //     const response = await fetch('assets/projects/iedb_default_SarsCov2_spike_epitopes.csv');
+                //     if (!response.ok) throw new Error('File not found');
                     
-                    const csvText = await response.text();
+                //     const csvText = await response.text();
                     
-                    // Parse directly from the text
-                    parseCSVFromText(csvText, function(residues) {
-                        highlightAllEpitopes(residues);
-                    });
-                } catch (err) {
-                    alert('Error: ' + err.message);
-                } finally {
-                    btn.disabled = false;
-                    btn.textContent = 'Upload';
-                }
+                //     // Parse directly from the text
+                //     parseCSVFromText(csvText, function(residues) {
+                //         highlightAllEpitopes(residues);
+                //     });
+                // } catch (err) {
+                //     alert('Error: ' + err.message);
+                // } finally {
+                //     btn.disabled = false;
+                //     btn.textContent = 'Reload Default Sars-Cov2 Spike Protein Data';
+                // }
             });
 
 
